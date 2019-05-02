@@ -29,7 +29,7 @@ public class Peanut_accountController {
 	@Autowired
 	private Peanut_accountService peanut_accountService;
 	
-	@RequestMapping(value = {"/getViewAccount"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"/","/getViewAccount"}, method = RequestMethod.GET)
 	public ModelAndView viewTransactions(HttpSession session, ModelMap m) {		
 		return new ModelAndView("redirect:viewAccount",m);
 
@@ -38,13 +38,23 @@ public class Peanut_accountController {
 	@RequestMapping(value = {"/viewAccount"}, method = RequestMethod.GET)
 	public ModelAndView getViewTransactions(HttpSession session, ModelMap m) {
 		Integer UserId = (Integer)session.getAttribute("userId");
-		m.addAttribute("available_balance", peanut_accountService.balance(UserId));
-		m.addAttribute("transactionList", transactionService.viewAllTransactions(UserId));
+		
+		try {
+			m.addAttribute("available_balance", peanut_accountService.balance(UserId));
+		} catch (Exception e) {
+			m.addAttribute("DataUnavailable", "Peanut Account not found.");
+			ModelAndView mav = new ModelAndView("/viewAccount");
+			return mav;
+		}
+		try {
+			m.addAttribute("transactionList", transactionService.viewAllTransactions(UserId));
+		} catch (Exception e) {
+			m.addAttribute("NoTransaction", "Transactions not found.");
+			ModelAndView mav = new ModelAndView("/viewAccount");
+			return mav;
+		}
 		
 		ModelAndView mav = new ModelAndView("/viewAccount");
 		return mav;
 	}
 }
-
-
-

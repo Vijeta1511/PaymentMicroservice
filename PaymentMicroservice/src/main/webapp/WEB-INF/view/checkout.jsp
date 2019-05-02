@@ -60,7 +60,7 @@ label{
 <body>
 
 <ul>
-  <li><a class="active" href="index">Dashboard</a></li>
+  <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
 </ul>
 
 <!-- <form action="paymentSuccessful" class="w3-container w3-card-4 w3-light-grey w3-text-pink"> -->
@@ -68,8 +68,19 @@ label{
 <div class="w3-center">
   <h2>Checkout</h2>
   <c:if test = "${err!=null}">
-			<p class="error" style="color:blue;"> ${err}</p>
+			<p class="error"align = "center" style="color:blue;"> ${err}</p>
 	</c:if>
+	<c:if test = "${DataUnavailable!=null}">
+			<p class="error" align = "center" style="color:blue;"> ${DataUnavailable}</p>
+	</c:if>
+	<c:if test = "${TransactionFailed!=null}">
+			<p class="error" align = "center" style="color:blue;"> ${TransactionFailed}</p>
+	</c:if>
+	<c:if test = "${TransactionCreationFailed!=null}">
+			<p class="error" align = "center" style="color:blue;"> ${TransactionCreationFailed}</p>
+	</c:if>
+	
+	
 </div>
  
 <div class="w3-row w3-section">
@@ -77,7 +88,7 @@ label{
   <div class="w3-col" style="width:200px"> <label><b>Available Balance</b></label></div>
     <div class="w3-rest">
     
-      <input class="w3-input w3-border" name="${available_balance}" type="text" placeholder="1000" disabled>
+      <input class="w3-input w3-border" name="${available_balance}" type="text" placeholder="${available_balance}" disabled>
     </div>
 </div>
 

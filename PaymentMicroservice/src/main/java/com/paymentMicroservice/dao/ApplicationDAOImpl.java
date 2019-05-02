@@ -16,15 +16,23 @@ import com.paymentMicroservice.rm.ApplicationRowMapper;
 public class ApplicationDAOImpl extends BaseDAO implements ApplicationDAO {
 
 	@Override
-	public Application save(Application a, String name, Object attribute) {
-		String sql = "INSERT INTO application(name, userId)"
-                + " VALUES(:name, :userId)";
+	public Application save(Application a) {
+		
+		String name = a.getName();
+		Integer userId = a.getUserId();
+		String imageLocation = a.getImageLocation();
+		String appDescription = a.getAppDesc();
+		
+		String sql = "INSERT INTO application(name, userId, imageLocation, appDescription)"
+                + " VALUES(:name, :userId, :imageLocation, :appDescription)";
+		
 		Map m = new HashMap();
 		m.put("name", name);
-		m.put("userId", attribute);		
-		
-		
-		 KeyHolder kh = new GeneratedKeyHolder();
+		m.put("userId", userId);
+		m.put("imageLocation", imageLocation);
+		m.put("appDescription", appDescription);
+			
+		 	KeyHolder kh = new GeneratedKeyHolder();
 	        SqlParameterSource ps = new MapSqlParameterSource(m);
 	        super.getNamedParameterJdbcTemplate().update(sql, ps, kh);
 	        Integer app_id = kh.getKey().intValue();
@@ -33,26 +41,7 @@ public class ApplicationDAOImpl extends BaseDAO implements ApplicationDAO {
 	    return a;
 	}
 
-	@Override
-	public void update(Application a) {
-		String sql = "UPDATE application SET name=:name, WHERE app_id=:app_id";
-        Map m = new HashMap();
-        m.put("name", a.getName());
-        m.put("app_id", a.getApp_id());
-        getNamedParameterJdbcTemplate().update(sql, m);		
-	}
 
-	@Override
-	public void delete(Application a) {
-		this.delete(a.getApp_id());
-		
-	}
-	
-	@Override
-	public void delete(Integer app_id) {
-		String sql="DELETE FROM application WHERE app_id=?";
-        getJdbcTemplate().update(sql, app_id);		
-	}
 
 	@Override
 	public Application findById(Integer app_id) {
@@ -67,11 +56,6 @@ public class ApplicationDAOImpl extends BaseDAO implements ApplicationDAO {
 		return getJdbcTemplate().queryForObject(sql, new ApplicationRowMapper(), propValue);// TODO Auto-generated method stub
 	}
 
-	@Override
-	public List<Application> findAll() {
-		String sql = "SELECT app_id, userId, name FROM application";
-		return getJdbcTemplate().query(sql, new ApplicationRowMapper());
-		
-	}
+	
 
 }

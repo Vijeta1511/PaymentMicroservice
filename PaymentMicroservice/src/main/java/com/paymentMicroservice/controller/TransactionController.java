@@ -42,7 +42,14 @@ public class TransactionController {
 	@RequestMapping(value = {"/checkout"}, method = RequestMethod.GET)
 	public ModelAndView getViewTransactions(HttpSession session, ModelMap m) {
 		Integer UserId = (Integer)session.getAttribute("userId");
-		m.addAttribute("available_balance", peanut_accountService.balance(UserId));
+		
+		try {
+			m.addAttribute("available_balance", peanut_accountService.balance(UserId));
+		} catch (Exception e) {
+			m.addAttribute("DataUnavailable", "Peanut Account not found.");
+			ModelAndView mav = new ModelAndView("/checkout");
+			return mav;
+		}
 		ModelAndView mav = new ModelAndView("/checkout");
 		return mav;
 		}
@@ -63,7 +70,14 @@ public class TransactionController {
 		
 		
 		
-		Integer balance = peanut_accountService.balance(UserId);
+		Integer balance;
+		try {
+			balance = peanut_accountService.balance(UserId);
+		} catch (Exception e1) {
+			m.addAttribute("TransactionFailed", "Transaction Failed. Peanut Account not found.");
+			ModelAndView mav = new ModelAndView("/checkout");
+			return mav;
+		}
 		try {
 			
 			if(balance<5) {
@@ -76,19 +90,21 @@ public class TransactionController {
 			String AppName = "Ask";//testing
 			transactionService.newTransaction(AppName , UserId);	
 			peanut_accountService.debit(UserId);
-			peanut_accountService.credit(21);//Require UserId of Application Owner//testing
+			
+			peanut_accountService.credit(3);//Require UserId of Application Owner//testing
 			
 			
 			}
 		} catch (Exception e) {
 			
-			e.printStackTrace();
+			m.addAttribute("TransactionCreationFailed", "Transaction Not Created.");
+			ModelAndView mav = new ModelAndView("/checkout");
+			return mav;
 		}
 		
 		ModelAndView mav = new ModelAndView("/paymentSuccessful"); // Require link for application
 		return mav;
 	}
-	
-
+		
 
 }

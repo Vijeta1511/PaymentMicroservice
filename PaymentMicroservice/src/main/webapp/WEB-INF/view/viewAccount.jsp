@@ -59,14 +59,19 @@ label{
 <body>
 
 <ul>
-  <li><a class="active" href="index">Dashboard</a></li>
+  <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
 </ul>
 
-<form action="index" class="w3-container w3-card-4 w3-light-grey w3-text-pink">
+<form action="index" class="w3-container w3-card-4 w3-light-grey w3-text-pink" method=POST>
 <div class="w3-center">
   <h2>Transaction Details</h2>
 </div>
- 
+ <c:if test = "${DataUnavailable!=null}">
+			<p class="error" align = "center" style="color:blue;"> ${DataUnavailable}</p>
+	</c:if>
+	<c:if test = "${NoTransaction!=null}">
+			<p class="error" align = "center" style="color:blue;"> ${NoTransaction}</p>
+	</c:if>
 <div class="w3-row w3-section">
   
   <div class="w3-col" style="width:200px"> <label><b>Available Balance</b></label></div>
@@ -91,32 +96,13 @@ label{
 			</c:if>
 			<c:forEach var="c" items="${transactionList}" varStatus="st">
 					<tr>
-						<td> ${c.trans_id}" /></td>
+						<td> ${c.trans_id} /></td>
 						<td> ${c.app_name} </td>
 						<td> 5 </td>
 
 					</tr>
 				</c:forEach>
-        <!--   <tr>
-            <td>1</td>
-            <td>Ask</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Library</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Ask</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Library</td>
-            <td>5</td>
-          </tr> -->
+        
         </table>
       </div>
 
