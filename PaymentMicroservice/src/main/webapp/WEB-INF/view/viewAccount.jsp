@@ -62,7 +62,7 @@ label{
   <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
 </ul>
 
-<form action="index" class="w3-container w3-card-4 w3-light-grey w3-text-pink" method=POST>
+<form action="/SingleSignIn/index" class="w3-container w3-card-4 w3-light-grey w3-text-pink" method=POST>
 <div class="w3-center">
   <h2>Transaction Details</h2>
 </div>
@@ -76,7 +76,7 @@ label{
   
   <div class="w3-col" style="width:200px"> <label><b>Available Balance</b></label></div>
     <div class="w3-rest">
-      <input class="w3-input w3-border" name="Available Balance" type="text" placeholder="${available_balance}" disabled>
+      <input class="w3-input w3-border" name="${available_balance}" type="text" placeholder="${available_balance}" disabled>
     </div>
 </div>
 
@@ -91,7 +91,7 @@ label{
           </thead>
          	<c:if test="${empty transactionList }">
 					<tr>
-						<td align="center" colspan="8" class="error"> No Records Present </td>
+						<td align="center" colspan="8" class="error"> No Records Present. </td>
 					</tr>
 			</c:if>
 			<c:forEach var="c" items="${transactionList}" varStatus="st">
@@ -107,7 +107,7 @@ label{
       </div>
 
 <p class="w3-center">
-<button class="w3-button w3-section w3-pink w3-ripple"> Close </button>
+<button class="w3-button w3-section w3-pink w3-ripple" href="/SingleSignIn/index"> Close </button>
 
 </p>
 </form>

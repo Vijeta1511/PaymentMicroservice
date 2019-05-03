@@ -11,4 +11,5 @@ public interface Peanut_accountService {
 	public void debit(Integer UserId);
 	
 	public void credit(Integer UserId);
+	public Integer getAppOwner(String AppName); 
 }

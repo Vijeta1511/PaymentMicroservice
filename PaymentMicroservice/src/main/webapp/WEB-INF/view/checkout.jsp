@@ -59,6 +59,7 @@ label{
 </style>
 <body>
 
+
 <ul>
   <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
 </ul>
@@ -79,7 +80,9 @@ label{
 	<c:if test = "${TransactionCreationFailed!=null}">
 			<p class="error" align = "center" style="color:blue;"> ${TransactionCreationFailed}</p>
 	</c:if>
-	
+	<c:if test = "${AppLinkNotFound!=null}">
+			<p class="error" align = "center" style="color:blue;"> ${AppLinkNotFound}</p>
+	</c:if>
 	
 </div>
  
@@ -100,8 +103,8 @@ label{
 </div>
 
 <p class="w3-center">
-<button  class="w3-button w3-section w3-pink w3-ripple" formaction="/paymentSuccessful"> Confirm Payment </button>
-<button  class="w3-button w3-section w3-pink w3-ripple" formaction="/index"> Cancel Payment </button>
+<button  class="w3-button w3-section w3-pink w3-ripple" formaction="http://143.167.9.201:8080/${app_name}/index.jsp?username=${Username}&role=${role}"> Confirm Payment </button>
+<button  class="w3-button w3-section w3-pink w3-ripple" formaction="/SingleSignIn/index"> Cancel Payment </button>
 
 </p>
 </f:form>

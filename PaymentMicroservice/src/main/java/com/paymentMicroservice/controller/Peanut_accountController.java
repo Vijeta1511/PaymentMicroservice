@@ -40,7 +40,7 @@ public class Peanut_accountController {
 		Integer UserId = (Integer)session.getAttribute("userId");
 		
 		try {
-			m.addAttribute("available_balance", peanut_accountService.balance(UserId));
+			m.addAttribute("available_balance", peanut_accountService.balance(5));
 		} catch (Exception e) {
 			m.addAttribute("DataUnavailable", "Peanut Account not found.");
 			ModelAndView mav = new ModelAndView("/viewAccount");
