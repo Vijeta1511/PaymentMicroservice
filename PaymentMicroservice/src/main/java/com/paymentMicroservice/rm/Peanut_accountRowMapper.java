@@ -2,11 +2,14 @@ package com.paymentMicroservice.rm;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import org.springframework.jdbc.core.RowMapper;
-
 import com.paymentMicroservice.domain.Peanut_account;
 
+/**
+ * RowMapper class for the Peanut_account
+ * @author vijetaagrawal
+ *
+ */
 public class Peanut_accountRowMapper implements RowMapper<Peanut_account> {
 
 	public Peanut_account mapRow(ResultSet rs, int rowNum) throws SQLException {

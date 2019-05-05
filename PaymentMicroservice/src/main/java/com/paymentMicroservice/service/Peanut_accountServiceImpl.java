@@ -17,16 +17,18 @@ import com.paymentMicroservice.rm.TransactionRowMapper;
 
 /**
  * @author vijetaagrawal
- *
+ * It extends the BaseDAO class and implements Peanut_accountService interface
+ *This class contains the description of functionalities available on the Peanut Account
+ *It implements the methods declared in the Peanut_accountService
  */
 
 @Service
 public class Peanut_accountServiceImpl extends BaseDAO implements Peanut_accountService {
 	
 	@Autowired
-	private Peanut_accountDAO peanut_accountDAO;
+	private Peanut_accountDAO peanut_accountDAO; //Dependency Injection using @Autowired Annotation
 	
-	@Autowired ApplicationDAO applicationDAO;
+	@Autowired ApplicationDAO applicationDAO; //Dependency Injection using @Autowired Annotation
 
 	@Override
 	public Peanut_account createAccount(Peanut_account p, Object attribute) {
@@ -61,7 +63,6 @@ public class Peanut_accountServiceImpl extends BaseDAO implements Peanut_account
 
 	@Override
 	public Integer balance(Integer UserId) {
-		
 		Peanut_account p = peanut_accountDAO.findByProperty("userId", UserId);
 		return p.getAvailable_peanuts();
 		

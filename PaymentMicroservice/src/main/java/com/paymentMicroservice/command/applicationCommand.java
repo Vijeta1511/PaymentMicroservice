@@ -2,7 +2,11 @@
 package com.paymentMicroservice.command;
 
 
-
+/**
+ * Application Command Claas
+ * @author vijetaagrawal
+ *
+ */
 public class applicationCommand {
 
 	private String name;

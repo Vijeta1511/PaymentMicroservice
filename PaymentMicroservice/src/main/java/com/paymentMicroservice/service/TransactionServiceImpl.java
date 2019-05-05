@@ -20,18 +20,20 @@ import com.paymentMicroservice.rm.TransactionRowMapper;
 
 /**
  * @author vijetaagrawal
- *
+ * It extends the BaseDAO class and implements TransactionService interface
+ *This class contains the description of functionalities available on transactions
+ *It implements the methods declared in the TransactionService
  */
 
 @Service
 public class TransactionServiceImpl extends BaseDAO implements TransactionService {
 	
 	@Autowired
-	private TransactionDAO transactionDAO;
+	private TransactionDAO transactionDAO; //Dependency Injection using @Autowired Annotation
 	@Autowired
-	private Peanut_accountDAO peanut_accountDAO;
+	private Peanut_accountDAO peanut_accountDAO; //Dependency Injection using @Autowired Annotation
 	@Autowired
-	private ApplicationDAO applicationDAO;
+	private ApplicationDAO applicationDAO; //Dependency Injection using @Autowired Annotation
 
 	@Override
 	public void newTransaction( String AppName, Integer UserId) {
@@ -41,8 +43,7 @@ public class TransactionServiceImpl extends BaseDAO implements TransactionServic
 		Application a = applicationDAO.findByProperty(PropName, AppName);
 		Peanut_account p = peanut_accountDAO.findByProperty(Account, UserId);
         System.out.println(AppName);
-		transactionDAO.save( t, p.getAcc_id(), a.getApp_id(), UserId, AppName);
-		
+		transactionDAO.save( t, p.getAcc_id(), a.getApp_id(), UserId, AppName);	
 		
 	}
 

@@ -1,5 +1,10 @@
 package com.paymentMicroservice.command;
 
+/**
+ * peanut_account command for available peanuts.
+ * @author vijetaagrawal
+ *
+ */
 public class peanut_accountCommand {
 	public String available_peanuts;
 

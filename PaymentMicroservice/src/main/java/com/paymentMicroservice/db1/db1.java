@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * 
+ * @author vijetaagrawal
+ *
+ */
 public class db1 {
 	Statement s1;
 	Connection conn = null;
@@ -14,7 +19,6 @@ public class db1 {
 			Class.forName("com.mysql.jdbc.Driver");
 		
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/common_db" ,"root", "svds2019"); //connection for server db
-			//conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/db1?serverTimezone=EST5EDT" ,"root", "dil1234");  //connecting to local db
 			s1=conn.createStatement();
 	       
 	        }

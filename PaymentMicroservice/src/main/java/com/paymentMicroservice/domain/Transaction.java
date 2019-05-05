@@ -1,5 +1,11 @@
 package com.paymentMicroservice.domain;
 
+/**
+ * Domain class for Transaction
+ * @author vijetaagrawal
+ *
+ */
+
 public class Transaction {
 
 	private Integer trans_id; //PK

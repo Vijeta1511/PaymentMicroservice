@@ -58,17 +58,6 @@ label{
 }
 </style>
 <body>
-<%-- <%
-String username=(String)session.getAttribute("loginName");
-int userID=0;		        
-int sessionID=0;
-String app_name = "";
-if(username != null){
-userID=(Integer)session.getAttribute("userID");				        
-sessionID=(Integer)session.getAttribute("sessionID");
-app_name =(String)session.getAttribute("appName");
-}
-%> --%>
 
 <ul>
   <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
@@ -114,8 +103,6 @@ app_name =(String)session.getAttribute("appName");
 
 <p class="w3-center">
 <button  class="w3-button w3-section w3-pink w3-ripple" > Confirm Payment </button>
-<!-- <button  class="w3-button w3-section w3-pink w3-ripple" formaction="/SingleSignIn/index"> Cancel Payment </button>
- -->
 </p>
 </f:form>
 

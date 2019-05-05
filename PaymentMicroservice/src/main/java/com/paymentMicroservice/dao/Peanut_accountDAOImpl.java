@@ -3,19 +3,25 @@ package com.paymentMicroservice.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import com.paymentMicroservice.domain.Peanut_account;
 import com.paymentMicroservice.rm.Peanut_accountRowMapper;
 
+/**
+ * This class extends the baseDAO and implements Peanut_accountDAO
+ * Contains the implementation of various methods of Peanut_accountDAO Interface
+ * @author vijetaagrawal
+ *
+ */
+
 @Repository
 public class Peanut_accountDAOImpl extends BaseDAO implements Peanut_accountDAO {
-
+	
+	//Registers the Peanut Account
 	@Override
 	public Peanut_account save(Peanut_account p, Object attribute) {
 		String sql = "INSERT INTO peanut_account(available_peanuts, userId)"

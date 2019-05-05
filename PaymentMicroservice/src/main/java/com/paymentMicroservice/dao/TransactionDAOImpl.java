@@ -3,22 +3,26 @@ package com.paymentMicroservice.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import com.paymentMicroservice.domain.Transaction;
 import com.paymentMicroservice.rm.TransactionRowMapper;
+
+/**
+ * This class extends the baseDAO and implements TransactionDAO
+ * Contains the implementation of various methods of TransactionDAO Interface
+ * @author vijetaagrawal
+ *
+ */
 
 @Repository
 public class TransactionDAOImpl extends BaseDAO implements TransactionDAO {
 
 	@Override
 	public void save(Transaction t, Integer acc_id, Integer app_id, Integer UserId, String AppName) {
-//		Transaction t = new Transaction();
 		t.setAccId(acc_id);
 		t.setAppId(app_id);
 		t.setUserId(UserId);
@@ -41,11 +45,7 @@ public class TransactionDAOImpl extends BaseDAO implements TransactionDAO {
 	}
 
 	@Override
-	public void update(Transaction t) {
-//		String sql = "UPDATE application WHERE trans_id=:trans_id";
-//        Map m = new HashMap();
-//        m.put("trans_id", t.getTrans_id());
-//        getNamedParameterJdbcTemplate().update(sql, m);			
+	public void update(Transaction t) {	
 	}
 
 	@Override

@@ -1,9 +1,7 @@
 package com.paymentMicroservice.dao;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -13,9 +11,15 @@ import com.paymentMicroservice.domain.Application;
 import com.paymentMicroservice.rm.ApplicationRowMapper;
 
 @Repository
+/**
+ * Application DAO Implementation class
+ * It extends BaseDAO and Implements the ApplicationDAO methods
+ * @author vijetaagrawal
+ *
+ */
 public class ApplicationDAOImpl extends BaseDAO implements ApplicationDAO {
 
-	@Override
+	@Override //Method to register application
 	public Application save(Application a) {
 		
 		String name = a.getName();
@@ -43,14 +47,14 @@ public class ApplicationDAOImpl extends BaseDAO implements ApplicationDAO {
 
 
 
-	@Override
+	@Override //Method to find an application by its ID
 	public Application findById(Integer app_id) {
 		String sql = "SELECT app_id, userId, name FROM application WHERE app_id=?";
 		Application a = getJdbcTemplate().queryForObject(sql, new ApplicationRowMapper(), app_id);
 		return a;
 	}
 
-	@Override
+	@Override //Method to find an application by its property
 	public Application findByProperty(String propName, String propValue) {
 		String sql = "SELECT app_id, userId, name FROM application WHERE "+propName+"=?";
 		return getJdbcTemplate().queryForObject(sql, new ApplicationRowMapper(), propValue);// TODO Auto-generated method stub

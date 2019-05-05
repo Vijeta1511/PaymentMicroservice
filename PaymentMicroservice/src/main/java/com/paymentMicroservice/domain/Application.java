@@ -1,5 +1,11 @@
 package com.paymentMicroservice.domain;
 
+/**
+ * Daomain class for application
+ * @author vijetaagrawal
+ *
+ */
+
 public class Application {
 	private Integer app_id; //PK
 	private String name;

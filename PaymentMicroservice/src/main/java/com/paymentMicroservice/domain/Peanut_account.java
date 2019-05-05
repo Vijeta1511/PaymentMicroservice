@@ -1,5 +1,11 @@
 package com.paymentMicroservice.domain;
 
+/**
+ * Domain class for peanut_account
+ * @author vijetaagrawal
+ *
+ */
+
 public class Peanut_account {
 
 	

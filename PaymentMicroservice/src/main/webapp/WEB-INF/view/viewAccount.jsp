@@ -89,8 +89,8 @@ sessionID=(Integer)session.getAttribute("sessionID");
     </div>
 </div>
 
-<div class="w3-container">      
-        <table class="w3-table-all">
+<div class="w3-container" style="overflow-x:auto;">      
+        <table class="w3-table-all" style="overflow-x:auto;">
           <thead>
             <tr class="w3-light-grey">
               <th>Transaction_ID</th>

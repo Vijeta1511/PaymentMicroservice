@@ -5,7 +5,7 @@ import com.paymentMicroservice.domain.Transaction;
 
 /**
  * @author vijetaagrawal
- *
+ * This interface declares the various methods used for transaction management in the platform.
  */
 
 public interface TransactionDAO {

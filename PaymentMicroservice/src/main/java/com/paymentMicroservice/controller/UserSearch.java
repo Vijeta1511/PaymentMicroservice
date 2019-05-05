@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 
-
+/**
+ * 
+ * @author vijetaagrawal
+ *
+ */
 class UserSearch {
 	Statement ss;
 	Connection con;
