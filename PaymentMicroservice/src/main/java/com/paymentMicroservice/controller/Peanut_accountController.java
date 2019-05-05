@@ -95,13 +95,41 @@ public class Peanut_accountController {
 		//Displays the transaction list of the current user
 		try {
 			m.addAttribute("transactionList", transactionService.viewAllTransactions(UserId));
+			ModelAndView mav = new ModelAndView("/viewAccount");
+			return mav;
+			
 		} catch (Exception e) {
 			m.addAttribute("NoTransaction", "Transactions not found.");
 			ModelAndView mav = new ModelAndView("/viewAccount");
 			return mav;
 		}
 		
-		ModelAndView mav = new ModelAndView("/viewAccount");
-		return mav;
+		
+	}
+	
+	@RequestMapping(value = {"/viewAllTransactions"}, method = RequestMethod.GET)
+	/**
+	 * GET Request mapping for "/viewAllTransactions"
+	 * shows all application transactions
+	 * @param m
+	 * @param session
+	 * @param request
+	 * @return
+	 */
+	public ModelAndView getAllTransactions(ModelMap m, HttpSession session ,HttpServletRequest request) {
+			
+		//Displays the transaction list of all applications
+		try {
+			m.addAttribute("transactionList", transactionService.viewTransactions());
+			ModelAndView mav = new ModelAndView("/viewAllTransactions");
+			return mav;
+			
+		} catch (Exception e) {
+			m.addAttribute("NoTransaction", "Transactions not found.");
+			ModelAndView mav = new ModelAndView("/viewAllTransactions");
+			return mav;
+		}
+		
+		
 	}
 }

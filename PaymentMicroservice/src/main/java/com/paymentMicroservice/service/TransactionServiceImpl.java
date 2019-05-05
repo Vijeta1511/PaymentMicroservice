@@ -54,4 +54,10 @@ public class TransactionServiceImpl extends BaseDAO implements TransactionServic
 		
 	}
 
+	@Override
+	public List<Transaction> viewTransactions() {
+		String sql = "SELECT trans_id, accId, appId, userId, app_name FROM transaction";
+		return getJdbcTemplate().query(sql, new TransactionRowMapper());
+	}
+
 }

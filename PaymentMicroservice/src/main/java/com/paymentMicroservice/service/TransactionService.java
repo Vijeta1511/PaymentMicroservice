@@ -17,4 +17,7 @@ public interface TransactionService {
 	public void newTransaction(String AppName, Integer UserId); 
 	//returns the List of transaction
 	public List<Transaction> viewAllTransactions(Integer UserId);
+	//returns the List of complete transactions
+	public List<Transaction> viewTransactions();
 }
+
