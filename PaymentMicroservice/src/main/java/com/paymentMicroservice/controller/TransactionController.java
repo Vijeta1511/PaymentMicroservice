@@ -5,6 +5,7 @@ package com.paymentMicroservice.controller;
 
 import java.net.URL;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -35,22 +36,57 @@ public class TransactionController {
 	
 	@Autowired
 	private TransactionService transactionService;
+
 	
 	@RequestMapping(value = {"/getCheckout"}, method = RequestMethod.GET)
-	public ModelAndView checkout(ModelMap m) {
-		m.addAttribute("command", new peanut_accountCommand());
-		return new ModelAndView("redirect:checkout",m);
+	public ModelAndView checkout(ModelMap m, HttpServletRequest request) {
+		
+		String userIDpara=request.getParameter("userID");
+    	String sessionIDpara=request.getParameter("sessionID");
+    	String appIDpara=request.getParameter("appName");
+    	
+    	//if one of both the parameters are null --> unauthorised user
+    			if(userIDpara==null || sessionIDpara==null){
+    				return new ModelAndView("redirect:/SingleSignIn/get_login",m);
+    			}
+    			else{
+    			   	//int conversion					    
+    			  	int userID=Integer.parseInt(userIDpara);
+    			  	int sessionID=Integer.parseInt(sessionIDpara);
+    			  	
+    			  	UserSearch us1=new UserSearch();
+    			  	
+    			  	//if the IDs are valid->if they are in the LoggedIn table
+    			  	if(us1.search(userID, sessionID)==1) {
+    	    		HttpSession session=request.getSession();	
+    	    		 session.setAttribute("userID", userIDpara);
+    	    		 session.setAttribute("sessionID", sessionIDpara);
+    	    		 session.setAttribute("username",us1.getUsername());
+    			     session.setAttribute("role",us1.getRole());
+    			     session.setAttribute("appName", appIDpara);
+//		Integer UserId = (Integer)request.getAttribute("userID");
+    			     
+    			     
+    			     return new ModelAndView("redirect:checkout",m);
+    			  	}
+		else {
+			return new ModelAndView("redirect:checkout",m); //the page which indicates unauthorised user
+		  	} 
+    			}
+//		m.addAttribute("command", new peanut_accountCommand());
+//		return new ModelAndView("redirect:checkout",m);
 		
 	}
 	
 	@RequestMapping(value = {"/checkout"}, method = RequestMethod.GET)
 	public ModelAndView getViewTransactions(HttpSession session,  ModelMap m, HttpServletRequest request) {
-//		String app_name = request.getQueryString();
-//		System.out.println(app_name);
-		Integer UserId = (Integer)session.getAttribute("userId");
+		
+		
+		int UserId = Integer.parseInt((String) session.getAttribute("userID"));
+		
 		
 		try {
-			m.addAttribute("available_balance", peanut_accountService.balance(5));
+			m.addAttribute("available_balance", peanut_accountService.balance(UserId));
 		} catch (Exception e) {
 			m.addAttribute("DataUnavailable", "Peanut Account not found.");
 			ModelAndView mav = new ModelAndView("/checkout");
@@ -60,27 +96,21 @@ public class TransactionController {
 		return mav;
 		}
 
-//	@RequestMapping(value = {"/paymentSuccessful"}, method = RequestMethod.GET)
-//	public ModelAndView getPaymentSuccessful(Model m) {
-//		m.addAttribute("command", new peanut_accountCommand());
-//		ModelAndView mav = new ModelAndView("/paymentSuccessful"); // Require link for application
-//		return mav;
-//		
-//	}
+	
 	
 	@RequestMapping(value = "/checkout", method = RequestMethod.POST)
-	public ModelAndView paymentSuccessful(ModelMap m,  HttpSession session, HttpServletRequest request) {
+	public ModelAndView paymentSuccessful(ModelMap m,  HttpSession session1, HttpServletRequest request) {
 		
 		
-		Integer UserId = (Integer)session.getAttribute("userId");
+		int userID = Integer.parseInt((String) session1.getAttribute("userID"));
+		String appName = (String)session1.getAttribute("appName");
+		int sessionID = Integer.parseInt((String)session1.getAttribute("sessionID"));
 		
-		String app_name = request.getQueryString();
-//		System.out.println(app_name);
 		
 		Integer balance;
 		
 		try {
-			balance = peanut_accountService.balance(5);
+			balance = peanut_accountService.balance(userID);
 			
 		} catch (Exception e1) {
 			
@@ -98,11 +128,11 @@ public class TransactionController {
 				
 			}else {
 
-			transactionService.newTransaction(app_name , UserId);
+			transactionService.newTransaction(appName , userID);
 			
-			peanut_accountService.debit(UserId);
+			peanut_accountService.debit(userID);
 			
-			Integer AppUserId = peanut_accountService.getAppOwner(app_name);
+			Integer AppUserId = peanut_accountService.getAppOwner(appName);
 			
 			peanut_accountService.credit(AppUserId);//Require UserId of Application Owner//testing
 			
@@ -114,21 +144,18 @@ public class TransactionController {
 			ModelAndView mav = new ModelAndView("/checkout");
 			return mav;
 		}
-		String Username = (String) session.getAttribute("loginName");
-		String role = (String) session.getAttribute("role");
-		
-		m.addAttribute("app_name", app_name);
-		m.addAttribute("Username", Username);
-		m.addAttribute("role", role);
+//
+		m.addAttribute("appName", appName);
+		m.addAttribute("sessionID", sessionID);
+		m.addAttribute("userID", userID);
 
 		try {
-			return new ModelAndView("redirect:http://143.167.9.201:8080/"+app_name+"/index.jsp?username="+Username+"&role="+role,m);
+			return new ModelAndView("redirect:http://143.167.9.201:8080/"+appName+"/Init?userID="+userID+"&sessionID="+sessionID,m);
 		} catch (Exception e) {
 			m.addAttribute("AppLinkNotFound", "Application link not found.");
-			return new ModelAndView("/SingleSignIn/index",m);
+			return new ModelAndView("/checkout",m);
 		}
-//		ModelAndView mav = new ModelAndView("/paymentSuccessful"+app_name); // Require link for application
-//		return mav;
+
 	}
 		
 

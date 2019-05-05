@@ -58,14 +58,24 @@ label{
 }
 </style>
 <body>
-
+<%-- <%
+String username=(String)session.getAttribute("loginName");
+int userID=0;		        
+int sessionID=0;
+String app_name = "";
+if(username != null){
+userID=(Integer)session.getAttribute("userID");				        
+sessionID=(Integer)session.getAttribute("sessionID");
+app_name =(String)session.getAttribute("appName");
+}
+%> --%>
 
 <ul>
   <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
 </ul>
 
 <!-- <form action="paymentSuccessful" class="w3-container w3-card-4 w3-light-grey w3-text-pink"> -->
-<f:form action="paymentSuccessful" modelAttribute="command" class="w3-container w3-card-4 w3-light-grey w3-text-pink" enctype="multipart/form-data" method="POST">
+<f:form action="checkout" modelAttribute="command" class="w3-container w3-card-4 w3-light-grey w3-text-pink" enctype="multipart/form-data" method="POST">
 <div class="w3-center">
   <h2>Checkout</h2>
   <c:if test = "${err!=null}">
@@ -103,9 +113,9 @@ label{
 </div>
 
 <p class="w3-center">
-<button  class="w3-button w3-section w3-pink w3-ripple" formaction="http://143.167.9.201:8080/${app_name}/index.jsp?username=${Username}&role=${role}"> Confirm Payment </button>
-<button  class="w3-button w3-section w3-pink w3-ripple" formaction="/SingleSignIn/index"> Cancel Payment </button>
-
+<button  class="w3-button w3-section w3-pink w3-ripple" > Confirm Payment </button>
+<!-- <button  class="w3-button w3-section w3-pink w3-ripple" formaction="/SingleSignIn/index"> Cancel Payment </button>
+ -->
 </p>
 </f:form>
 

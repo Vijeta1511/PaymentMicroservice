@@ -57,7 +57,16 @@ label{
 }
 </style>
 <body>
-
+<%
+String username=(String)session.getAttribute("loginName");
+int userID=0;		        
+int sessionID=0;
+String app_name = "";
+if(username != null){
+userID=(Integer)session.getAttribute("userID");				        
+sessionID=(Integer)session.getAttribute("sessionID");
+}
+%>
 <ul>
   <li><a class="active" href="/SingleSignIn/index">Dashboard</a></li>
 </ul>
@@ -96,7 +105,7 @@ label{
 			</c:if>
 			<c:forEach var="c" items="${transactionList}" varStatus="st">
 					<tr>
-						<td> ${c.trans_id} /></td>
+						<td> ${c.trans_id} </td>
 						<td> ${c.app_name} </td>
 						<td> 5 </td>
 
